@@ -1,5 +1,5 @@
 import json
-
+import requests
 import pytest
 
 from common.assertions import equal_json_strings
@@ -401,3 +401,15 @@ def test_overlapping_keep_both():
 
     assert response_status == 200
     assert equal_json_strings(expected_response, response_content)
+
+    def test_given_anonymize_called_with_genz_then_expected_valid_response_returned():
+        url = "http://127.0.0.1:3000/genz"
+        payload = {
+            "text": "Please contact Emily Carter at 734-555-9284 if you have questions.",
+            "analyzer_results": [
+                {"start": 15, "end": 27, "score": 0.3, "entity_type": "PERSON"},
+                {"start": 31, "end": 43, "score": 0.95, "entity_type": "PHONE_NUMBER"}
+            ]
+        }
+    response = requests.post(url, json=payload)
+    assert response.status_code == 200

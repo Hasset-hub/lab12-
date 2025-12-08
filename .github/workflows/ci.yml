@@ -134,6 +134,8 @@ jobs:
           python -m venv env
           source env/bin/activate
           python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest requests
 
       - name: Wait for services to be ready
         run: sleep 60
@@ -142,6 +144,12 @@ jobs:
         working-directory: e2e-tests
         run: |
           source env/bin/activate
+          # Start server in background
+          python3 ../presidio-anonymizer/app.py &
+          SERVER_PID=$!
+          sleep 5
+          pytest tests -vv
+          kill $SERVER_PID
 
       - name: Stop Docker containers
         if: always()

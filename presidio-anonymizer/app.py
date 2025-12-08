@@ -8,10 +8,9 @@ from pathlib import Path
 from flask import Flask, Response, jsonify, request
 from presidio_anonymizer import AnonymizerEngine, DeanonymizeEngine
 from presidio_anonymizer.entities import InvalidParamError
+from presidio_anonymizer.operators.genz_operator import GenZOperator  # <- Added
 from presidio_anonymizer.services.app_entities_convertor import AppEntitiesConvertor
 from werkzeug.exceptions import BadRequest, HTTPException
-
-from presidio_anonymizer.operators.genz_operator import GenZOperator  # <- Added
 
 DEFAULT_PORT = "3000"
 LOGGING_CONF_FILE = "logging.ini"
