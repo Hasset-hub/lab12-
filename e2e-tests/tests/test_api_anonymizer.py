@@ -4,7 +4,7 @@ import pytest
 
 from common.assertions import equal_json_strings
 from common.methods import anonymize, anonymizers, deanonymize
-from e2e_tests.common.methods import call_anonymize_endpoint
+from common.methods import call_anonymize_endpoint
 
 @pytest.mark.api
 def test_given_anonymize_called_with_valid_request_then_expected_valid_response_returned():
