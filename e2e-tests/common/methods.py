@@ -1,4 +1,5 @@
 import os
+import json
 import requests
 from common.constants import ANONYMIZER_BASE_URL as DEFAULT_BASE_URL
 

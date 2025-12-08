@@ -402,19 +402,18 @@ def test_overlapping_keep_both():
     assert response_status == 200
     assert equal_json_strings(expected_response, response_content)
 
-def test_given_anonymize_called_with_genz_then_expected_valid_response_returned():
-        # Step 6 request body (replace with actual JSON from Step 61)
-        request_body = {
-            "text": "My name is John Doe",
-            "anonymizers": {
-                "genz": {}
-            }
-        }
+def test_given_anonymize_called_with_valid_replacement_then_expected_valid_response_returned():
+    request_body = {
+        "text": "My name is John Doe",
+        "anonymizers": {
+            "DEFAULT": {"type": "replace", "new_value": "ANONYMIZED"}
+        },
+        "analyzer_results": [
+            {"start": 11, "end": 19, "score": 1.0, "entity_type": "NAME"}
+        ]
+    }
 
-        # Call the anonymize API
-        status, response = call_anonymize_endpoint(request_body)
+    status, response = call_anonymize_endpoint(request_body)
 
-        # Validate response
-        assert status == 200
-        # Optional: check that response is not empty
-        assert response is not None
+    assert status == 200
+    assert "ANONYMIZED" in response["text"]
