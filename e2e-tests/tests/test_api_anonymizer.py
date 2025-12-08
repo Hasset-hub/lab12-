@@ -407,7 +407,7 @@ def test_given_anonymize_called_with_genz_then_expected_valid_response_returned(
         request_body = {
             "text": "My name is John Doe",
             "anonymizers": {
-                "GENZ": {}
+                "genz": {}
             }
         }
 
