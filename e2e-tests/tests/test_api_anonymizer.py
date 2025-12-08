@@ -403,7 +403,7 @@ def test_overlapping_keep_both():
     assert equal_json_strings(expected_response, response_content)
 
 def test_given_anonymize_called_with_genz_then_expected_valid_response_returned():
-        # Step 6 request body (replace with actual JSON from Step6)
+        # Step 6 request body (replace with actual JSON from Step 61)
         request_body = {
             "text": "My name is John Doe",
             "anonymizers": {
