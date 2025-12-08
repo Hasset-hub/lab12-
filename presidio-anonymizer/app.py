@@ -107,15 +107,18 @@ class Server:
         @self.app.route("/genz", methods=["POST"])
         def genz_anonymize():
             content = request.get_json()
-            if not content:
-                raise BadRequest("Invalid request json")
-
+            if not isinstance(content, dict):
+                raise BadRequest("Invalid request JSON: expected a JSON object")
+            
+            if "text" not in content or "analyzer_results" not in content:
+                raise BadRequest("Missing 'text' or 'analyzer_results' in request")
+            
             analyzer_results = AppEntitiesConvertor.analyzer_results_from_json(
                 content.get("analyzer_results")
             )
             operator = {"genz": GenZOperator()}
             result = self.anonymizer.anonymize(
-                text=content.get("text", ""),
+                text=content.get("text"),
                 analyzer_results=analyzer_results,
                 operators=operator
             )
