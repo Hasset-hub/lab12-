@@ -136,14 +136,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+
       - name: Wait for services to be ready
         run: sleep 60
 
       - name: Run E2E tests
         working-directory: e2e-tests
+        env:
+          ANONYMIZER_BASE_URL: http://localhost:5001
         run: |
           source env/bin/activate
-          pytest tests --maxfail=1 --disable-warnings -q
+          pytest -s
+
 
       - name: Stop Docker containers
         if: always()
